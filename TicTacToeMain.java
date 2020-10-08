@@ -399,7 +399,6 @@ public class TicTacToeMain {
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
 		System.out.println("Welcome to Tic Tac Toe Game");
-		
 		do {
 			//create new board
 			newBoard.createBoard();
