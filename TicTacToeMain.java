@@ -39,7 +39,7 @@ public class TicTacToeMain {
 		}
 		return output;
 	}
-	
+
 	//UC3
 	private void showBoard() {
 		for(int i=1;i<10;i++) {
@@ -50,11 +50,9 @@ public class TicTacToeMain {
 			}
 		}
 	}
-	
+
 	//UC4
-	private int checkMoveOk() {
-		System.out.print("Enter position - ");
-		int index=sc.nextInt();
+	private int checkMoveOk(int index) {
 		if (index>=1 && index<=9) {
 			if ((board[index])==0) {
 				return index;
@@ -66,32 +64,78 @@ public class TicTacToeMain {
 			return 0;
 		}
 	}
-	
+
 	//UC5
-	private void playerMove(char[] input) {
+	private void playerMove(char[] input,int player) {
 		int index;
 		do {
-			index=checkMoveOk();
+			System.out.print("Enter position - ");
+			int in=sc.nextInt();
+			index=checkMoveOk(in);
 			if (index==0) {
 				System.out.println("Cannot make move.");
 			}else {
-				board[index]=input[0];
+				board[index]=input[player];
 				break;
 			}
 		}while(index!=0);
 	}
-	
+
 	//UC6
 	private int toss() {
 		Random  r=new Random();
 		int randomNum=r.nextInt(2);
-		System.out.println(randomNum);
 		if(randomNum==0) {
 			System.out.println("Computer won the Toss.");
 		}else {
 			System.out.println("User won the Toss.");
 		}
 		return randomNum;
+	}
+
+	public int getWinOrTie(char[] input,int player) {
+		char playerMove=input[player];
+		//Win Cond.
+		if(
+				//Horizontal Win Cond.
+				(board[1]==playerMove && board[2]==playerMove && board[3]==playerMove) ||
+				(board[4]==playerMove && board[5]==playerMove && board[6]==playerMove) ||
+				(board[7]==playerMove && board[8]==playerMove && board[9]==playerMove) ||
+
+				//Vertical Win Cond.
+				(board[1]==playerMove && board[4]==playerMove && board[7]==playerMove) ||
+				(board[2]==playerMove && board[5]==playerMove && board[8]==playerMove) ||
+				(board[3]==playerMove && board[6]==playerMove && board[9]==playerMove) ||
+
+				//Cross Win Cond.
+				(board[1]==playerMove && board[5]==playerMove && board[9]==playerMove) ||
+				(board[3]==playerMove && board[5]==playerMove && board[7]==playerMove)
+				)
+		{
+			if (player==0) {
+				System.out.println("User has won!!");
+			}else {
+				System.out.println("Computer has won!!");
+			}
+			//1 returned to show game has ended.
+			return 1;
+		}
+		//No win - No Tie
+		for(int i=1;i<10;i++) {
+			if (checkMoveOk(i)!=0) {
+				if (player==0) {
+					System.out.println("Computer's Move.");
+				}else {
+					System.out.println("Player's Move");
+				}
+				//0 returned to switch moves
+				return 0;
+			}
+		}
+		//Last Cond-Tie
+		System.out.println("Its a tie.");
+		//1 returned to show game has ended.
+		return 1;
 	}
 
 	//Main Method
@@ -101,16 +145,17 @@ public class TicTacToeMain {
 
 		//first entry is player and second entry is computer 
 		char[] input=newBoard.getInput();
-		
+
 		//printing out board in console
 		newBoard.showBoard();
-		
+
 		//trying to move
-		newBoard.playerMove(input);
-		
+		newBoard.playerMove(input,0);
+		newBoard.getWinOrTie(input, 0);
+
 		//printing out board in console
 		newBoard.showBoard();
-		
+
 		//Initiating toss
 		newBoard.toss();
 	}
