@@ -1,5 +1,6 @@
 package com.birdgelabz.TicTacToe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeMain {
@@ -79,6 +80,19 @@ public class TicTacToeMain {
 			}
 		}while(index!=0);
 	}
+	
+	//UC6
+	private int toss() {
+		Random  r=new Random();
+		int randomNum=r.nextInt(2);
+		System.out.println(randomNum);
+		if(randomNum==0) {
+			System.out.println("Computer won the Toss.");
+		}else {
+			System.out.println("User won the Toss.");
+		}
+		return randomNum;
+	}
 
 	//Main Method
 	public static void main(String[] args) {
@@ -96,5 +110,8 @@ public class TicTacToeMain {
 		
 		//printing out board in console
 		newBoard.showBoard();
+		
+		//Initiating toss
+		newBoard.toss();
 	}
 }
