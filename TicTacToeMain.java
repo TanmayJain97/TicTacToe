@@ -9,6 +9,9 @@ public class TicTacToeMain {
 	static Scanner sc=new Scanner(System.in);
 
 	// UC1
+	/**Method to create a new game board.
+	 * @return new empty game board
+	 */
 	private char[] createBoard() {
 		for (int i = 1; i < 10; i++) {
 			board[i] = 0;
@@ -17,11 +20,16 @@ public class TicTacToeMain {
 	}
 
 	//UC2
+	/**Method to allow user to choose "x" or "o".
+	 * @return character array with- <br>	
+	 * 1. First element as player char <br>
+	 * 2. Second element as computer char
+	 */
 	private char[] getInput() {
 		char x='x';
 		char o='o';
-		char[] output=new char[2];
-		System.out.println("Please enter a character-");
+		char[] output= {x,o};
+		System.out.print("Please choose x or o-");
 		String input=(sc.next()).toLowerCase();
 		char mark=input.charAt(0);
 		if (mark==x) {
@@ -35,23 +43,32 @@ public class TicTacToeMain {
 			System.out.println("Computer has entered- "+x);
 			output[1]=x;
 		}else {
-			System.out.println("Unknown entry.");
+			System.out.println("Unknown entry. Defaulting to Player-x Computer-o");
 		}
 		return output;
 	}
 
 	//UC3
+	/**
+	 * Method to print out board
+	 */
 	private void showBoard() {
 		for(int i=1;i<10;i++) {
 			if (i%3==0) {
-				System.out.println(board[i]);
+				System.out.println(i+". "+board[i]);
+				System.out.println("-----------------");
 			}else {
-				System.out.print(board[i]+" | ");
+				System.out.print(i+". "+board[i]+" | ");
 			}
 		}
 	}
 
 	//UC4
+	/**Method to check if player intended move is valid
+	 * @param index where player intends to move
+	 * @return 0-Invalid Move <br>
+	 * Index-Valid Move
+	 */
 	private int checkMoveOk(int index) {
 		if (index>=1 && index<=9) {
 			if ((board[index])==0) {
@@ -66,7 +83,12 @@ public class TicTacToeMain {
 	}
 
 	//UC5
-	private void playerMove(char[] input,int player) {
+	/**Method to make player move to desired index <br>
+	 * Internally Calls checkMoveOk
+	 * @param CharArray containing x and o
+	 * 
+	 */
+	private void playerMove(char[] input) {
 		int index;
 		do {
 			System.out.print("Enter position - ");
@@ -75,13 +97,17 @@ public class TicTacToeMain {
 			if (index==0) {
 				System.out.println("Cannot make move.");
 			}else {
-				board[index]=input[player];
+				board[index]=input[0];
 				break;
 			}
 		}while(index!=0);
 	}
 
 	//UC6
+	/**Method to toss between Player and Comp
+	 * @return 0-Computer Wins Toss <br>
+	 * 1-Player Wins Toss
+	 */
 	private int toss() {
 		Random  r=new Random();
 		int randomNum=r.nextInt(2);
@@ -93,7 +119,14 @@ public class TicTacToeMain {
 		return randomNum;
 	}
 
-	public int getWinOrTie(char[] input,int player) {
+	//UC7
+	/**Method to check if Win/Tie/Loss Cond. is fulfilled
+	 * @param CharArray containing x and o
+	 * @param player
+	 * @return 0-Game Continues <br>
+	 * 1-Game Over Cond.
+	 */
+	private int getWinOrTie(char[] input,int player) {
 		char playerMove=input[player];
 		//Win Cond.
 		if(
@@ -138,25 +171,278 @@ public class TicTacToeMain {
 		return 1;
 	}
 
+	//UC8
+	/**Provides Comp logic to move a win posn.
+	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
+	 */
+	private boolean compMoveToWin(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+
+		//makes Comp move in order to win
+		if(board[1]==compLetter && board[2]==compLetter && board[3]==0)
+			board[3] = compLetter;
+		else if(board[1]==compLetter && board[2]==0 && board[3]==compLetter)
+			board[2] = compLetter;
+		else if(board[1]==0 && board[2]==compLetter && board[3]==compLetter)
+			board[1] = compLetter;
+		else if(board[4]==compLetter && board[5]==compLetter && board[6]==0)
+			board[6] = compLetter;
+		else if(board[4]==compLetter && board[5]==0 && board[6]==compLetter)
+			board[5] = compLetter;
+		else if(board[4]==0 && board[5]==compLetter && board[6]==compLetter)
+			board[4] = compLetter;
+		else if(board[7]==compLetter && board[8]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[7]==compLetter && board[8]==0 && board[9]==compLetter)
+			board[8] = compLetter;
+		else if(board[7]==0 && board[8]==compLetter && board[9]==compLetter)
+			board[7] = compLetter;
+		else if(board[1]==compLetter && board[4]==compLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[1]==compLetter && board[4]==0 && board[7]==compLetter)
+			board[4] = compLetter;
+		else if(board[1]==0 && board[4]==compLetter && board[7]==compLetter)
+			board[1] = compLetter;
+		else if(board[2]==compLetter && board[5]==compLetter && board[8]==0)
+			board[8] = compLetter;
+		else if(board[2]==compLetter && board[5]==0 && board[8]==compLetter)
+			board[5] = compLetter;
+		else if(board[2]==0 && board[5]==compLetter && board[8]==compLetter)
+			board[2] = compLetter;
+		else if(board[3]==compLetter && board[6]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[3]==compLetter && board[6]==0 && board[9]==compLetter)
+			board[6] = compLetter;
+		else if(board[3]==0 && board[6]==compLetter && board[9]==compLetter)
+			board[3] = compLetter;
+		else if(board[1]==compLetter && board[5]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[1]==compLetter && board[5]==0 && board[9]==compLetter)
+			board[5] = compLetter;
+		else if(board[1]==0 && board[5]==compLetter && board[9]==compLetter)
+			board[1] = compLetter;
+		else if(board[3]==compLetter && board[5]==compLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[3]==compLetter && board[5]==0 && board[7]==compLetter)
+			board[5] = compLetter;
+		else if(board[3]==0 && board[5]==compLetter && board[7]==compLetter)
+			board[3] = compLetter;
+		else {
+			return false;
+		}
+		return true;
+	}
+
+	//UC9
+	/**Provides Comp logic to block player from winning.
+	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
+	 */
+	private boolean compMoveToBlockPlayerWin(char[] input) {
+		//find char of Player and Comp
+		char playerLetter=input[0];
+		char compLetter=input[1];
+
+		//makes Comp move in order to block player get sequence
+		if(board[1]==playerLetter && board[2]==playerLetter && board[3]==0)
+			board[3] = compLetter;
+		else if(board[1]==playerLetter && board[2]==0 && board[3]==playerLetter)
+			board[2] = compLetter;
+		else if(board[1]==0 && board[2]==playerLetter && board[3]==playerLetter)
+			board[1] = compLetter;
+		else if(board[4]==playerLetter && board[5]==playerLetter && board[6]==0)
+			board[6] = compLetter;
+		else if(board[4]==playerLetter && board[5]==0 && board[6]==playerLetter)
+			board[5] = compLetter;
+		else if(board[4]==0 && board[5]==playerLetter && board[6]==playerLetter)
+			board[4] = compLetter;
+		else if(board[7]==playerLetter && board[8]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[7]==playerLetter && board[8]==0 && board[9]==playerLetter)
+			board[8] = compLetter;
+		else if(board[7]==0 && board[8]==playerLetter && board[9]==playerLetter)
+			board[7] = compLetter;
+		else if(board[1]==playerLetter && board[4]==playerLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[1]==playerLetter && board[4]==0 && board[7]==playerLetter)
+			board[4] = compLetter;
+		else if(board[1]==0 && board[4]==playerLetter && board[7]==playerLetter)
+			board[1] = compLetter;
+		else if(board[2]==playerLetter && board[5]==playerLetter && board[8]==0)
+			board[8] = compLetter;
+		else if(board[2]==playerLetter && board[5]==0 && board[8]==playerLetter)
+			board[5] = compLetter;
+		else if(board[2]==0 && board[5]==playerLetter && board[8]==playerLetter)
+			board[2] = compLetter;
+		else if(board[3]==playerLetter && board[6]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[3]==playerLetter && board[6]==0 && board[9]==playerLetter)
+			board[6] = compLetter;
+		else if(board[3]==0 && board[6]==playerLetter && board[9]==playerLetter)
+			board[3] = compLetter;
+		else if(board[1]==playerLetter && board[5]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[1]==playerLetter && board[5]==0 && board[9]==playerLetter)
+			board[5] = compLetter;
+		else if(board[1]==0 && board[5]==playerLetter && board[9]==playerLetter)
+			board[1] = compLetter;
+		else if(board[3]==playerLetter && board[5]==playerLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[3]==playerLetter && board[5]==0 && board[7]==playerLetter)
+			board[5] = compLetter;
+		else if(board[3]==0 && board[5]==playerLetter && board[7]==playerLetter)
+			board[3] = compLetter;
+		else {
+			return false;
+		}
+		return true;
+	}
+
+	//UC10
+	/**Provides Comp logic to take available corners
+	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
+	 */
+	private boolean compMoveToTakeCorner(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+
+		//move to take corner
+		if(checkMoveOk(1)!=0)
+			board[1] = compLetter;
+		else if(checkMoveOk(3)!=0)
+			board[3] = compLetter;
+		else if(checkMoveOk(7)!=0)
+			board[7] = compLetter;
+		else if(checkMoveOk(9)!=0)
+			board[9] = compLetter;
+		else
+			return false;
+		return true;
+	}
+
+	//UC11
+	/**Provides Comp logic to take center and available spaces
+	 * @param CharArray containing x and o
+	 * 
+	 */
+	private void compMoveToAvailableSpace(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+
+		//move to take center
+		if(checkMoveOk(5)!=0)
+			board[5] = compLetter;
+		//move to take rest positions
+		else if(checkMoveOk(2)!=0)
+			board[2] = compLetter;
+		else if(checkMoveOk(4)!=0)
+			board[4] = compLetter;
+		else if(checkMoveOk(6)!=0)
+			board[6] = compLetter;
+		else if(checkMoveOk(8)!=0)
+			board[8] = compLetter;
+	}
+
+	/**Internally calls all Comp Move sub methods
+	 * @param CharArray containing x and o
+	 */
+	private void compMove(char[] input) {
+		//Calling all computer movement sub-methods sequentially.
+		if(!compMoveToWin(input)) {
+			if(!compMoveToBlockPlayerWin(input)) {
+				if(!compMoveToTakeCorner(input)) {
+					if(!compMoveToTakeCorner(input)) {
+						compMoveToAvailableSpace(input);
+					}
+				}
+			}
+		}
+	}
+	
+	//UC12
+	/**Checks for game end condition
+	 * @param CharArray containing x and o
+	 * @param player
+	 * @return true-Game Over <br>
+	 * false-Game Continues
+	 */
+	private boolean checkGameOver(char[] input,int player) {
+		int gameStatus=getWinOrTie(input, player);
+		if(gameStatus==1)
+			System.out.println("-----Game Over-----");
+		else
+			return false;
+		return true;
+	}
+	
+	//UC13
+	/**Checks if player wants rematch
+	 * @return true-Rematch <br>
+	 * false-Exit Program
+	 */
+	private boolean askRematch() {
+		System.out.println("Do you want a rematch? (y/n): ");
+		char choice = (sc.next().toLowerCase()).charAt(0);
+		if(choice=='y')
+			return true;
+		else
+			return false;
+	}
+	
 	//Main Method
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
-		char[] myBoard=newBoard.createBoard();
-
-		//first entry is player and second entry is computer 
-		char[] input=newBoard.getInput();
-
-		//printing out board in console
-		newBoard.showBoard();
-
-		//trying to move
-		newBoard.playerMove(input,0);
-		newBoard.getWinOrTie(input, 0);
-
-		//printing out board in console
-		newBoard.showBoard();
-
-		//Initiating toss
-		newBoard.toss();
+		System.out.println("Welcome to Tic Tac Toe Game");
+		
+		do {
+			//create new board
+			newBoard.createBoard();
+			
+			//asking for choice of char
+			char[] input=newBoard.getInput();
+			
+			//display empty board
+			System.out.println("Displaying empty board->");
+			newBoard.showBoard();
+			
+			//Initiating toss
+			int toss=newBoard.toss();
+			
+			switch(toss) {
+			case 1:{
+				do {
+					newBoard.playerMove(input);
+					newBoard.showBoard();
+					//check for game over
+					if(newBoard.checkGameOver(input, 0)) {
+						break;
+					}
+					newBoard.compMove(input);
+					newBoard.showBoard();
+				}while(!newBoard.checkGameOver(input, 1));
+				break;
+			}
+			case 0:{
+				do {
+					newBoard.compMove(input);
+					newBoard.showBoard();
+					//check for game over
+					if(newBoard.checkGameOver(input, 1)) {
+						break;
+					}
+					newBoard.playerMove(input);
+					newBoard.showBoard();
+				}while(!newBoard.checkGameOver(input, 0));
+				break;
+				}		
+			}
+		}while(newBoard.askRematch());
+		System.out.println("Program End.");
 	}
 }
