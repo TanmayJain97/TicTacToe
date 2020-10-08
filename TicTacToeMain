@@ -1,13 +1,38 @@
-package com.tictactoe;
+package com.birdgelabz.TicTacToe;
+
+import java.util.Scanner;
 
 public class TicTacToeMain {
-	
-	public char[] board=new char[10];
 
-	public static void main(String[] args) {
-		for (int i=1;i<10;i++) {
-			board[i]="";
+	public char[] board = new char[10];
+	static Scanner sc=new Scanner(System.in);
+
+	// UC1
+	private char[] createBoard() {
+		for (int i = 1; i < 10; i++) {
+			board[i] = 0;
+		}
+		return board;
+	}
+	
+	//UC2
+	private String getInput(char mark) {
+		if (mark=='x') {
+			return "User has entered- "+mark;
+		}else if(mark=='o') {
+			return "Computer has entered- "+mark;
+		}else {
+			return "Unknown entry.";
 		}
 	}
-}
 
+	public static void main(String[] args) {
+		TicTacToeMain newBoard = new TicTacToeMain();
+		char[] myBoard=newBoard.createBoard();
+
+		System.out.println("Please enter a character-");
+		String input=sc.next();
+		char mark=input.charAt(0);
+		newBoard.getInput(mark);
+	}
+}
