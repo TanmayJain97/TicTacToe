@@ -38,6 +38,17 @@ public class TicTacToeMain {
 		}
 		return output;
 	}
+	
+	//UC3
+	private void showBoard() {
+		for(int i=1;i<10;i++) {
+			if (i%3==0) {
+				System.out.println(board[i]);
+			}else {
+				System.out.print(board[i]+" | ");
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
@@ -45,5 +56,6 @@ public class TicTacToeMain {
 
 		//first entry is player and second entry is computer 
 		char[] input=newBoard.getInput();
+		newBoard.showBoard();
 	}
 }
