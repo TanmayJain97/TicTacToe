@@ -14,25 +14,36 @@ public class TicTacToeMain {
 		}
 		return board;
 	}
-	
+
 	//UC2
-	private String getInput(char mark) {
-		if (mark=='x') {
-			return "User has entered- "+mark;
-		}else if(mark=='o') {
-			return "Computer has entered- "+mark;
+	private char[] getInput() {
+		char x='x';
+		char o='o';
+		char[] output=new char[2];
+		System.out.println("Please enter a character-");
+		String input=(sc.next()).toLowerCase();
+		char mark=input.charAt(0);
+		if (mark==x) {
+			System.out.println("User has entered- "+x);
+			output[0]=x;
+			System.out.println("Computer has entered- "+o);
+			output[1]=o;
+		}else if(mark==o) {
+			System.out.println("User has entered- "+o);
+			output[0]=o;
+			System.out.println("Computer has entered- "+x);
+			output[1]=x;
 		}else {
-			return "Unknown entry.";
+			System.out.println("Unknown entry.");
 		}
+		return output;
 	}
 
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
 		char[] myBoard=newBoard.createBoard();
 
-		System.out.println("Please enter a character-");
-		String input=sc.next();
-		char mark=input.charAt(0);
-		newBoard.getInput(mark);
+		//first entry is player and second entry is computer 
+		char[] input=newBoard.getInput();
 	}
 }
