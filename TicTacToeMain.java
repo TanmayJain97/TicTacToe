@@ -302,6 +302,30 @@ public class TicTacToeMain {
 		return true;
 	}
 
+	//UC10
+	/**Provides Comp logic to take available corners
+	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
+	 */
+	public boolean compMoveToTakeCorner(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+		
+		//move to take corner
+		if(checkMoveOk(1)!=0)
+			board[1] = compLetter;
+		else if(checkMoveOk(3)!=0)
+			board[3] = compLetter;
+		else if(checkMoveOk(7)!=0)
+			board[7] = compLetter;
+		else if(checkMoveOk(9)!=0)
+			board[9] = compLetter;
+		else
+			return false;
+		return true;
+	}
+	
 	//Main Method
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
