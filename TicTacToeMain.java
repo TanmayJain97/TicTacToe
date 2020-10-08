@@ -126,7 +126,7 @@ public class TicTacToeMain {
 	 * @return 0-Game Continues <br>
 	 * 1-Game Over Cond.
 	 */
-	public int getWinOrTie(char[] input,int player) {
+	private int getWinOrTie(char[] input,int player) {
 		char playerMove=input[player];
 		//Win Cond.
 		if(
@@ -170,17 +170,17 @@ public class TicTacToeMain {
 		//1 returned to show game has ended.
 		return 1;
 	}
-	
+
 	//UC8
 	/**Provides Comp logic to move a win posn.
 	 * @param CharArray containing x and o
 	 * @return true-Move completed <br>
 	 * false-Move Not Possible
 	 */
-	public boolean compMoveToWin(char[] input) {
+	private boolean compMoveToWin(char[] input) {
 		//choose which char to put in board
 		char compLetter=input[1];
-		
+
 		//makes Comp move in order to win
 		if(board[1]==compLetter && board[2]==compLetter && board[3]==0)
 			board[3] = compLetter;
@@ -235,18 +235,18 @@ public class TicTacToeMain {
 		}
 		return true;
 	}
-	
+
 	//UC9
 	/**Provides Comp logic to block player from winning.
 	 * @param CharArray containing x and o
 	 * @return true-Move completed <br>
 	 * false-Move Not Possible
 	 */
-	public boolean compMoveToBlockPlayerWin(char[] input) {
+	private boolean compMoveToBlockPlayerWin(char[] input) {
 		//find char of Player and Comp
 		char playerLetter=input[0];
 		char compLetter=input[1];
-		
+
 		//makes Comp move in order to block player get sequence
 		if(board[1]==playerLetter && board[2]==playerLetter && board[3]==0)
 			board[3] = compLetter;
@@ -308,10 +308,10 @@ public class TicTacToeMain {
 	 * @return true-Move completed <br>
 	 * false-Move Not Possible
 	 */
-	public boolean compMoveToTakeCorner(char[] input) {
+	private boolean compMoveToTakeCorner(char[] input) {
 		//choose which char to put in board
 		char compLetter=input[1];
-		
+
 		//move to take corner
 		if(checkMoveOk(1)!=0)
 			board[1] = compLetter;
@@ -324,6 +324,45 @@ public class TicTacToeMain {
 		else
 			return false;
 		return true;
+	}
+
+	//UC11
+	/**Provides Comp logic to take center and available spaces
+	 * @param CharArray containing x and o
+	 * 
+	 */
+	private void compMoveToAvailableSpace(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+
+		//move to take center
+		if(checkMoveOk(5)!=0)
+			board[5] = compLetter;
+		//move to take rest positions
+		else if(checkMoveOk(2)!=0)
+			board[2] = compLetter;
+		else if(checkMoveOk(4)!=0)
+			board[4] = compLetter;
+		else if(checkMoveOk(6)!=0)
+			board[6] = compLetter;
+		else if(checkMoveOk(8)!=0)
+			board[8] = compLetter;
+	}
+
+	/**Internally calls all Comp Move sub methods
+	 * @param CharArray containing x and o
+	 */
+	private void compMove(char[] input) {
+		//Calling all computer movement sub-methods sequentially.
+		if(!compMoveToWin(input)) {
+			if(!compMoveToBlockPlayerWin(input)) {
+				if(!compMoveToTakeCorner(input)) {
+					if(!compMoveToTakeCorner(input)) {
+						compMoveToAvailableSpace(input);
+					}
+				}
+			}
+		}
 	}
 	
 	//Main Method
