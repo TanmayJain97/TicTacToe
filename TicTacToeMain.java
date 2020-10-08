@@ -9,6 +9,9 @@ public class TicTacToeMain {
 	static Scanner sc=new Scanner(System.in);
 
 	// UC1
+	/**Method to create a new game board.
+	 * @return new empty game board
+	 */
 	private char[] createBoard() {
 		for (int i = 1; i < 10; i++) {
 			board[i] = 0;
@@ -17,6 +20,11 @@ public class TicTacToeMain {
 	}
 
 	//UC2
+	/**Method to allow user to choose "x" or "o".
+	 * @return character array with- <br>	
+	 * 1. First element as player char <br>
+	 * 2. Second element as computer char
+	 */
 	private char[] getInput() {
 		char x='x';
 		char o='o';
@@ -41,6 +49,9 @@ public class TicTacToeMain {
 	}
 
 	//UC3
+	/**
+	 * Method to print out board
+	 */
 	private void showBoard() {
 		for(int i=1;i<10;i++) {
 			if (i%3==0) {
@@ -52,6 +63,11 @@ public class TicTacToeMain {
 	}
 
 	//UC4
+	/**Method to check if player intended move is valid
+	 * @param index where player intends to move
+	 * @return 0-Invalid Move <br>
+	 * Index-Valid Move
+	 */
 	private int checkMoveOk(int index) {
 		if (index>=1 && index<=9) {
 			if ((board[index])==0) {
@@ -66,6 +82,12 @@ public class TicTacToeMain {
 	}
 
 	//UC5
+	/**Method to make player move to desired index <br>
+	 * Internally Calls checkMoveOk
+	 * @param CharArray containing x and o
+	 * @param Player
+	 * 
+	 */
 	private void playerMove(char[] input,int player) {
 		int index;
 		do {
@@ -82,6 +104,10 @@ public class TicTacToeMain {
 	}
 
 	//UC6
+	/**Method to toss between Player and Comp
+	 * @return 0-Computer Wins Toss <br>
+	 * 1-Player Wins Toss
+	 */
 	private int toss() {
 		Random  r=new Random();
 		int randomNum=r.nextInt(2);
@@ -93,6 +119,13 @@ public class TicTacToeMain {
 		return randomNum;
 	}
 
+	//UC7
+	/**Method to check if Win/Tie/Loss Cond. is fulfilled
+	 * @param CharArray containing x and o
+	 * @param player
+	 * @return 0-Game Continues <br>
+	 * 1-Game Over Cond.
+	 */
 	public int getWinOrTie(char[] input,int player) {
 		char playerMove=input[player];
 		//Win Cond.
@@ -136,6 +169,65 @@ public class TicTacToeMain {
 		System.out.println("Its a tie.");
 		//1 returned to show game has ended.
 		return 1;
+	}
+	
+	//UC8
+	/**Provides Comp logic to move a win posn.
+	 * @param CharArray containing x and o
+	 */
+	public void compMoveToWin(char[] input) {
+		//choose which char to put in board
+		char compLetter=input[1];
+		
+		//makes Comp move in order to win
+		if(board[1]==compLetter && board[2]==compLetter && board[3]==0)
+			board[3] = compLetter;
+		else if(board[1]==compLetter && board[2]==0 && board[3]==compLetter)
+			board[2] = compLetter;
+		else if(board[1]==0 && board[2]==compLetter && board[3]==compLetter)
+			board[1] = compLetter;
+		else if(board[4]==compLetter && board[5]==compLetter && board[6]==0)
+			board[6] = compLetter;
+		else if(board[4]==compLetter && board[5]==0 && board[6]==compLetter)
+			board[5] = compLetter;
+		else if(board[4]==0 && board[5]==compLetter && board[6]==compLetter)
+			board[4] = compLetter;
+		else if(board[7]==compLetter && board[8]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[7]==compLetter && board[8]==0 && board[9]==compLetter)
+			board[8] = compLetter;
+		else if(board[7]==0 && board[8]==compLetter && board[9]==compLetter)
+			board[7] = compLetter;
+		else if(board[1]==compLetter && board[4]==compLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[1]==compLetter && board[4]==0 && board[7]==compLetter)
+			board[4] = compLetter;
+		else if(board[1]==0 && board[4]==compLetter && board[7]==compLetter)
+			board[1] = compLetter;
+		else if(board[2]==compLetter && board[5]==compLetter && board[8]==0)
+			board[8] = compLetter;
+		else if(board[2]==compLetter && board[5]==0 && board[8]==compLetter)
+			board[5] = compLetter;
+		else if(board[2]==0 && board[5]==compLetter && board[8]==compLetter)
+			board[2] = compLetter;
+		else if(board[3]==compLetter && board[6]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[3]==compLetter && board[6]==0 && board[9]==compLetter)
+			board[6] = compLetter;
+		else if(board[3]==0 && board[6]==compLetter && board[9]==compLetter)
+			board[3] = compLetter;
+		else if(board[1]==compLetter && board[5]==compLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[1]==compLetter && board[5]==0 && board[9]==compLetter)
+			board[5] = compLetter;
+		else if(board[1]==0 && board[5]==compLetter && board[9]==compLetter)
+			board[1] = compLetter;
+		else if(board[3]==compLetter && board[5]==compLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[3]==compLetter && board[5]==0 && board[7]==compLetter)
+			board[5] = compLetter;
+		else if(board[3]==0 && board[5]==compLetter && board[7]==compLetter)
+			board[3] = compLetter;
 	}
 
 	//Main Method
