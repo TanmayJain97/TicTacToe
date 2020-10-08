@@ -51,9 +51,11 @@ public class TicTacToeMain {
 	}
 	
 	//UC4
-	private int checkMoveOk(int index) {
+	private int checkMoveOk() {
+		System.out.print("Enter position - ");
+		int index=sc.nextInt();
 		if (index>=1 && index<=9) {
-			if ((board[index])!=0) {
+			if ((board[index])==0) {
 				return index;
 			}else {
 				return 0;
@@ -62,6 +64,20 @@ public class TicTacToeMain {
 			System.out.println("Index out of bounds!");
 			return 0;
 		}
+	}
+	
+	//UC5
+	private void playerMove(char[] input) {
+		int index;
+		do {
+			index=checkMoveOk();
+			if (index==0) {
+				System.out.println("Cannot make move.");
+			}else {
+				board[index]=input[0];
+				break;
+			}
+		}while(index!=0);
 	}
 
 	//Main Method
@@ -75,9 +91,10 @@ public class TicTacToeMain {
 		//printing out board in console
 		newBoard.showBoard();
 		
-		//checking if some position is free
-		System.out.print("Enter position - ");
-		int index=sc.nextInt();
-		newBoard.checkMoveOk(index);
+		//trying to move
+		newBoard.playerMove(input);
+		
+		//printing out board in console
+		newBoard.showBoard();
 	}
 }
