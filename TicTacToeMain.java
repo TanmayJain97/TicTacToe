@@ -365,6 +365,22 @@ public class TicTacToeMain {
 		}
 	}
 	
+	//UC12
+	/**Checks for game end condition
+	 * @param CharArray containing x and o
+	 * @param player
+	 * @return true-Game Over <br>
+	 * false-Game Continues
+	 */
+	private boolean checkGameOver(char[] input,int player) {
+		int gameStatus=getWinOrTie(input, player);
+		if(gameStatus==1)
+			System.out.println("-----Game Over-----");
+		else
+			return false;
+		return true;
+	}
+	
 	//Main Method
 	public static void main(String[] args) {
 		TicTacToeMain newBoard = new TicTacToeMain();
