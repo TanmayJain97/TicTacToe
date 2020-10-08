@@ -174,8 +174,10 @@ public class TicTacToeMain {
 	//UC8
 	/**Provides Comp logic to move a win posn.
 	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
 	 */
-	public void compMoveToWin(char[] input) {
+	public boolean compMoveToWin(char[] input) {
 		//choose which char to put in board
 		char compLetter=input[1];
 		
@@ -228,6 +230,76 @@ public class TicTacToeMain {
 			board[5] = compLetter;
 		else if(board[3]==0 && board[5]==compLetter && board[7]==compLetter)
 			board[3] = compLetter;
+		else {
+			return false;
+		}
+		return true;
+	}
+	
+	//UC9
+	/**Provides Comp logic to block player from winning.
+	 * @param CharArray containing x and o
+	 * @return true-Move completed <br>
+	 * false-Move Not Possible
+	 */
+	public boolean compMoveToBlockPlayerWin(char[] input) {
+		//find char of Player and Comp
+		char playerLetter=input[0];
+		char compLetter=input[1];
+		
+		//makes Comp move in order to block player get sequence
+		if(board[1]==playerLetter && board[2]==playerLetter && board[3]==0)
+			board[3] = compLetter;
+		else if(board[1]==playerLetter && board[2]==0 && board[3]==playerLetter)
+			board[2] = compLetter;
+		else if(board[1]==0 && board[2]==playerLetter && board[3]==playerLetter)
+			board[1] = compLetter;
+		else if(board[4]==playerLetter && board[5]==playerLetter && board[6]==0)
+			board[6] = compLetter;
+		else if(board[4]==playerLetter && board[5]==0 && board[6]==playerLetter)
+			board[5] = compLetter;
+		else if(board[4]==0 && board[5]==playerLetter && board[6]==playerLetter)
+			board[4] = compLetter;
+		else if(board[7]==playerLetter && board[8]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[7]==playerLetter && board[8]==0 && board[9]==playerLetter)
+			board[8] = compLetter;
+		else if(board[7]==0 && board[8]==playerLetter && board[9]==playerLetter)
+			board[7] = compLetter;
+		else if(board[1]==playerLetter && board[4]==playerLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[1]==playerLetter && board[4]==0 && board[7]==playerLetter)
+			board[4] = compLetter;
+		else if(board[1]==0 && board[4]==playerLetter && board[7]==playerLetter)
+			board[1] = compLetter;
+		else if(board[2]==playerLetter && board[5]==playerLetter && board[8]==0)
+			board[8] = compLetter;
+		else if(board[2]==playerLetter && board[5]==0 && board[8]==playerLetter)
+			board[5] = compLetter;
+		else if(board[2]==0 && board[5]==playerLetter && board[8]==playerLetter)
+			board[2] = compLetter;
+		else if(board[3]==playerLetter && board[6]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[3]==playerLetter && board[6]==0 && board[9]==playerLetter)
+			board[6] = compLetter;
+		else if(board[3]==0 && board[6]==playerLetter && board[9]==playerLetter)
+			board[3] = compLetter;
+		else if(board[1]==playerLetter && board[5]==playerLetter && board[9]==0)
+			board[9] = compLetter;
+		else if(board[1]==playerLetter && board[5]==0 && board[9]==playerLetter)
+			board[5] = compLetter;
+		else if(board[1]==0 && board[5]==playerLetter && board[9]==playerLetter)
+			board[1] = compLetter;
+		else if(board[3]==playerLetter && board[5]==playerLetter && board[7]==0)
+			board[7] = compLetter;
+		else if(board[3]==playerLetter && board[5]==0 && board[7]==playerLetter)
+			board[5] = compLetter;
+		else if(board[3]==0 && board[5]==playerLetter && board[7]==playerLetter)
+			board[3] = compLetter;
+		else {
+			return false;
+		}
+		return true;
 	}
 
 	//Main Method
